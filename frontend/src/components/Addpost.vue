@@ -22,10 +22,11 @@ export default {
 <style scoped>
 button {
 	color: #fff;
-	border-radius: 2em;
-	border: none;
+	background: transparent;
+	border: solid 3px #000;
 	cursor: pointer;
-	margin: 2em;
-	padding: 2em;
+	padding: 0.5em;
+	border-radius: 0 0 0 7px;
+	margin: 0.5em;
 }
 </style>
