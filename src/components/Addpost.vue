@@ -1,27 +1,31 @@
 <template>
-<div>
-    <button @click="onClick()">Publier</button>
-</div>
+	<div>
+		<button :style="{ background: color }" @click="onClick()">{{ title }}</button>
+	</div>
 </template>
 
 <script>
 export default {
-    name: "Addpost",
-    methods:{
-        onClick(){
-            this.$emit("toggle-new-post", )
-        }
-    }
-}
+	name: "Addpost",
+	methods: {
+		onClick() {
+			this.$emit("toggle-new-post");
+		}
+	},
+	props: {
+		title: String,
+		color: String
+	}
+};
 </script>
-
 
 <style scoped>
 button {
-    border-radius: 2em;
-    border: none;
-    cursor: pointer;
-    margin: 2em;
-    padding: 2em;
+	color: #fff;
+	border-radius: 2em;
+	border: none;
+	cursor: pointer;
+	margin: 2em;
+	padding: 2em;
 }
 </style>
