@@ -42,42 +42,53 @@ export default {
 			this.showNewPost = !this.showNewPost;
 		},
 
-		newPost(post) {
-			this.posts = [...this.posts, post];
+		async newPost(post) {
+			const res = await fetch("api/posts", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(post)
+			});
+
+			const data = await res.json();
+
+			this.posts = [...this.posts, data];
 		},
 
-		deletePost(id) {
+		async deletePost(id) {
 			if (confirm("Etes-vous sûr de vouloir supprimer ce post et ses commentaires?")) {
-				this.posts = this.posts.filter(post => post.id !== id);
+				const res = await fetch(`api/posts/${id}`, {
+					method: "DELETE"
+				});
+
+				res.status === 200
+					? (this.posts = this.posts.filter(post => post.id !== id))
+					: alert("erreur de suppression");
 			}
 		},
 
-		modifyPost(title, text) {
+		async modifyPost(id) {
 			if (confirm("Attention! Etes-vous sûr de vouloir modifier un post deja existant?")) {
-				console.log(title, text);
-				this.posts = this.posts.write(post => post.title);
+				console.log(id);
 			}
+		},
+		async fetchPosts() {
+			const res = await fetch("api/posts");
+
+			const data = await res.json();
+
+			return data;
+		},
+		async fetchPost(id) {
+			const res = await fetch(`api/posts/${id}`);
+
+			const data = await res.json();
+
+			return data;
 		}
 	},
 
-	created() {
-		this.posts = [
-			{
-				id: 1,
-				title: " Premier titre",
-				text: "Premier post"
-			},
-			{
-				id: 2,
-				title: "Deuxieme titre",
-				text: "Deuxieme post"
-			},
-			{
-				id: 3,
-				title: "Troisieme titre",
-				text: "Troisieme post"
-			}
-		];
+	async created() {
+		this.posts = await this.fetchPosts();
 	}
 };
 </script>

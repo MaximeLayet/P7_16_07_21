@@ -1,8 +1,9 @@
 <template>
 	<form @submit="onSubmit">
-		<div>
+		<div class="new-post">
 			<label>Titre</label>
 			<input
+				class="title"
 				type="text"
 				v-model="title"
 				name="title"
@@ -10,7 +11,7 @@
 				required
 			/>
 		</div>
-		<div>
+		<div class="new-post">
 			<label>Votre post</label>
 			<textarea v-model="text" name="text" placeholder="Votre article ici..." required />
 		</div>
@@ -33,7 +34,6 @@ export default {
 			e.preventDefault();
 
 			const newPost = {
-				id: Math.floor(Math.random() * 10000),
 				title: this.title,
 				text: this.text
 			};
@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 label {
 	text-transform: uppercase;
 	margin: 0.5em;
@@ -56,7 +56,17 @@ label {
 
 input {
 	border-radius: 0 0 0 7px;
-	margin: 1em;
+	margin-bottom: 1em;
+}
+input.title {
+	width: 30vh;
+	align-self: center;
+}
+
+textarea {
+	align-self: center;
+	width: 70vh;
+	height: 30vh;
 }
 
 input.submit {
@@ -65,5 +75,11 @@ input.submit {
 	margin: 1em;
 	color: #4e77a6;
 	border: 3px solid #4e77a6;
+	cursor: pointer;
+}
+
+div {
+	display: flex;
+	flex-direction: column;
 }
 </style>

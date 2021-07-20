@@ -3,7 +3,7 @@
 		<div v-bind:key="post.id" v-for="post in posts">
 			<Post
 				@delete-post="$emit('delete-post', post.id)"
-				@modify-post="$emit('modify-post', post.title, post.text)"
+				@modify-post="$emit('modify-post', post.id)"
 				:post="post"
 			/>
 		</div>
