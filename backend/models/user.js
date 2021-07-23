@@ -1,72 +1,44 @@
-//pense à ajouter la partie sql
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("maxime", "root", "", {
+const { Sequelize, Model, DataTypes } = require("sequelize");
+const sequelize = new Sequelize("groupomania", "root", "Aeleonieve201195", {
 	host: "localhost",
 	dialect: "mysql"
 });
 
 const User = sequelize.define("User", {
-	// Model attributes are defined here
-	firstName: {
-		type: DataTypes.STRING,
+	userId: {
 		allowNull: false,
-		validate: {
-			notNull: {
-				msg: "Veuillez renseigner votre prénom"
-			}
-		}
-	},
-	lastName: {
-		type: DataTypes.STRING,
-		allowNull: false,
-		validate: {
-			notNull: {
-				msg: "Veuillez renseigner votre nom de famille"
-			}
-		}
+		autoIncrement: true,
+		primaryKey: true,
+		type: DataTypes.INTEGER
 	},
 	email: {
-		type: DataTypes.STRING,
 		allowNull: false,
-		validate: {
-			notNull: {
-				msg: "Veuillez renseigner votre mail"
-			}
-		},
-		unique: true
+		unique: true,
+		type: DataTypes.STRING
+	},
+	firstName: {
+		allowNull: false,
+		type: DataTypes.STRING
+	},
+	lastName: {
+		allowNull: false,
+		type: DataTypes.STRING
 	},
 	password: {
-		type: DataTypes.STRING(64),
-		is: /^[0-9a-f]{64}$/i,
 		allowNull: false,
-		validate: {
-			notNull: {
-				msg: "Indiquer un mot de passe valide"
-			}
-		}
+		type: DataTypes.STRING
+	},
+	isAdmin: {
+		defaultValue: false,
+		allowNull: false,
+		type: DataTypes.BOOLEAN
 	}
 });
 
-async function test() {
-	try {
-		await sequelize.authenticate();
-		console.log("Connection has been established successfully.");
-		await User.sync({ force: true });
-		console.log("The table for the User model was just (re)created!");
-		await User.create({ firstName: "Jane", lastName: "Doe" });
-	} catch (error) {
-		console.error("Unable to connect to the database:", error);
-	}
-}
-test();
+User.sync()
+	.then(() => console.log("La table User a été créée dans la base de données"))
+	.catch(error => console.error("Une erreur est survenue", error));
 
-app.post("/users", async (req, res) => {
-	const user = {
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		email: req.body.email,
-		password: req.body.password
-	};
-	await User.create(user);
-	res.json(user);
-});
+module.exports = User;
+
+//TODO régler le souci pour creer BD des posts(publication)

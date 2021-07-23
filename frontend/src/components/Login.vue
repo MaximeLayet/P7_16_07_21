@@ -1,7 +1,11 @@
 <template>
-	<button>Se connecter</button>
-	<div>
-		<Formconnect />
+	<div v-show="inHomePage">
+		<button @click="onClick()">
+			Se connecter
+		</button>
+		<div>
+			<Formconnect @show-login="showLogin" />
+		</div>
 	</div>
 </template>
 
@@ -11,6 +15,28 @@ export default {
 	name: "Login",
 	components: {
 		Formconnect
+	},
+	props: {
+		showLogin: Boolean
+	},
+	data() {
+		return {
+			showTheLogin: false
+		};
+	},
+	methods: {
+		onClick() {
+			console.log((this.showTheLogin = !this.showTheLogin));
+		}
+	},
+	computed: {
+		inHomePage() {
+			if (this.$route.path === "/") {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 };
 </script>

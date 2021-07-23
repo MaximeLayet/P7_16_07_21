@@ -1,5 +1,7 @@
 <template>
-	<button>Se déconnecter</button>
+	<router-link to="/">
+		<button>Se déconnecter</button>
+	</router-link>
 </template>
 
 <script>

@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/user/Signup
+Content-type: application/json; 
+
+{"email": "layetmaxime@gmail.com", 
+"password": "123aze",
+"firstName":"max",
+"lastName":"lay",}
+

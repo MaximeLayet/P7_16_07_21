@@ -1,10 +1,42 @@
 <template>
-	<button>Créer un compte</button>
+	<div v-show="inHomePage">
+		<button>Créer un compte</button>
+		<div>
+			<Formsignup @show-connect="showConnect" />
+		</div>
+	</div>
 </template>
 
 <script>
+import Formsignup from "@/components/Formsignup.vue";
+
 export default {
-	name: "Signup"
+	name: "Signup",
+	components: {
+		Formsignup
+	},
+	props: {
+		showConnect: Boolean
+	},
+	data() {
+		return {
+			showTheConnect: false
+		};
+	},
+	methods: {
+		onClick() {
+			console.log((this.showTheConnect = !this.showTheConnect));
+		}
+	},
+	computed: {
+		inHomePage() {
+			if (this.$route.path === "/") {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 };
 </script>
 
