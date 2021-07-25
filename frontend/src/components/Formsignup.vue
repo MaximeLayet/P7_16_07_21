@@ -2,9 +2,9 @@
 	<div>
 		<form>
 			<label>Votre prénom</label>
-			<input id="firstName" name="firstName" placeholder="Mon prénom" />
+			<input id="firstName" name="firstName" placeholder="Mon prénom" required />
 			<label>Votre Nom</label>
-			<input id="lastName" name="lastName" placeholder="Mon nom de famille" />
+			<input id="lastName" name="lastName" placeholder="Mon nom de famille" required />
 			<label id="email" for="email">Votre e-mail</label>
 			<input
 				type="email"
@@ -16,7 +16,6 @@
 			<label for="password">Votre mot de passe</label>
 			<input id="password" type="password" v-model="password" name="password" required />
 			<router-link to="/home">
-				<div>{{ errorMessage }}</div>
 				<input
 					class="connect"
 					type="submit"
@@ -31,11 +30,7 @@
 <script>
 export default {
 	name: "Formsignup",
-	data() {
-		return {
-			errorMessage: undefined
-		};
-	},
+
 	methods: {
 		createAccount() {
 			const firstName = document.getElementById("firstName").value;
@@ -49,27 +44,17 @@ export default {
 				email: email,
 				password: password
 			});
-
-			if (
-				account.firstName == "" ||
-				account.lastName == "" ||
-				account.email ||
-				account.password
-			) {
-				account = {
-					accountVerification: false
-				};
-			}
+			console.log(account);
 
 			fetch("http://localhost:5000/api/signup", {
 				method: "POST",
 				headers: {
 					contentType: "application/json"
 				},
-				body: JSON.stringify(account)
+				body: account
 			}).then(res => {
 				if (res.status == 200) {
-					window.location.href = "http://localhost:8080/#/";
+					window.location.href = "http://localhost:8080/home/";
 				} else {
 					res.json().then(data => {
 						this.errorMessage = data.message;

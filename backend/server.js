@@ -51,5 +51,13 @@ server.on("listening", () => {
 	console.log("Listening on " + bind);
 });
 
+app.get("/test", (req, res) => {
+	if (res) {
+		res.send("connection ok");
+	} else {
+		console.log("pas ok");
+	}
+});
+
 //Permet d'écouter le port souhaité
 server.listen(port);

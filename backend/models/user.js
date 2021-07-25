@@ -29,15 +29,19 @@ const User = sequelize.define("User", {
 		type: DataTypes.STRING
 	},
 	isAdmin: {
-		defaultValue: false,
+		defaultValue: true,
 		allowNull: false,
 		type: DataTypes.BOOLEAN
 	}
 });
 
-User.sync()
-	.then(() => console.log("La table User a été créée dans la base de données"))
-	.catch(error => console.error("Une erreur est survenue", error));
+let test = async function test() {
+	await User.sync()
+		.then(() => console.log("La table User a été créée dans la base de données"))
+		.catch(error => console.error("Une erreur est survenue", error));
+};
+
+test();
 
 module.exports = User;
 

@@ -2,13 +2,14 @@ const express = require("express");
 
 const userRoutes = require("./routes/user");
 // const commentRoutes = require("./routes/comment");
-// const publicationRoutes = require("./routes/publication");
+const publicationRoutes = require("./routes/publication");
 
 const app = express();
+//const path = require("path");
 
 // Connection database
-const { Router } = require("express");
-const { Sequelize, Model, DataTypes } = require("sequelize");
+
+const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize("groupomania", "root", "Aeleonieve201195", {
 	host: "localhost",
 	dialect: "mysql"
@@ -32,7 +33,9 @@ sequelize
 app.use(express.json());
 
 app.use("/api/user", userRoutes);
-// app.use("/api/publication", publicationRoutes);
+app.use("/api/publication", publicationRoutes);
 // app.use("/api/comment", commentRoutes);
+
+app.use("/api/auth", userRoutes);
 
 module.exports = app;

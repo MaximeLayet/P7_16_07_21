@@ -13,7 +13,8 @@ exports.signup = (req, res, next) => {
 				email: req.body.email,
 				password: hash,
 				firstName: req.body.firstName,
-				lastName: req.body.lastName
+				lastName: req.body.lastName,
+				isAdmin: req.body.isAdmin
 			});
 			user.save()
 				.then(() => res.status(201).json({ message: "Utilisateur créé !" }))
@@ -24,7 +25,7 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
 	//Pour trouver l'utilisateur
-	User.findOne({ email: req.body.email })
+	User.findOne({ where: { email: req.body.email } })
 		.then(user => {
 			if (!user) {
 				return res.status(401).json({ error: "Utilisateur non trouvé" });
@@ -46,4 +47,30 @@ exports.login = (req, res, next) => {
 				.catch(error => res.status(500).json({ error }));
 		})
 		.catch(error => res.status(500).json({ error }));
+};
+
+exports.delete = (req, res, next) => {
+	User.destroy({ where: { userId: req.params.userId } })
+		.then(() => {
+			res.status(200).send("Utilisateur supprimé");
+		})
+		.catch(error => res.status(500));
+};
+
+exports.modify = (req, res, next) => {
+	User.findOne({ where: { userId: req.params.userId } }).then(user => {
+		if (user) {
+			bcrypt.hash(req.body.password, 10).then(hash => {
+				user.update({
+					email: req.body.email,
+					password: hash,
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					isAdmin: req.body.isAdmin
+				}).then(function (user) {
+					res.send(user);
+				});
+			});
+		} else res.status(403).json({ message: "erreur" });
+	});
 };
