@@ -1,7 +1,7 @@
 const express = require("express");
 
 const userRoutes = require("./routes/user");
-// const commentRoutes = require("./routes/comment");
+const commentRoutes = require("./routes/comment");
 const publicationRoutes = require("./routes/publication");
 
 const app = express();
@@ -34,7 +34,7 @@ app.use(express.json());
 
 app.use("/api/user", userRoutes);
 app.use("/api/publication", publicationRoutes);
-// app.use("/api/comment", commentRoutes);
+app.use("/api/comment", commentRoutes);
 
 app.use("/api/auth", userRoutes);
 

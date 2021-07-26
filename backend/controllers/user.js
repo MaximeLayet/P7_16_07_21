@@ -74,3 +74,11 @@ exports.modify = (req, res, next) => {
 		} else res.status(403).json({ message: "erreur" });
 	});
 };
+
+exports.getOne = (req, res, next) => {
+	User.findOne({ where: { userId: req.params.userId } })
+		.then(user => {
+			return res.status(200).json(user);
+		})
+		.catch(error => res.status(404).json({ error }));
+};
