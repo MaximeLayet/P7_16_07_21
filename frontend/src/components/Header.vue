@@ -10,7 +10,7 @@
 <script>
 import Disconnect from "@/components/Disconnect.vue";
 import Login from "@/components/Login.vue";
-import Signup from "@/components/Signup.vue";
+import Signup from "../views/Login.vue";
 
 export default {
 	name: "Header",

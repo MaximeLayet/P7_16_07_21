@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-bind:key="post.id" v-for="post in posts">
+		<div v-bind:key="publication.id" v-for="publication in publications">
 			<Post
 				@delete-post="$emit('delete-post', post.id)"
 				@modify-post="$emit('modify-post', post.id)"

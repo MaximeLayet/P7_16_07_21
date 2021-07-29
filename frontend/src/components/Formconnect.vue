@@ -1,45 +1,61 @@
 <template>
 	<div>
-		<form @connect="Onconnect">
-			<label for="email">Votre e-mail</label>
-			<input
-				type="email"
-				v-model="email"
-				name="email"
-				placeholder="monmail@groupomania.fr"
-				required
-			/>
-			<label for="password">Votre mot de passe</label>
-			<input type="password" v-model="password" name="password" required />
-			<router-link to="/home">
-				<input class="connect" type="submit" value="Go!" />
-			</router-link>
+		<form>
+			<div>
+				<label for="email">Adresse email </label>
+				<input type="email" id="youremail" v-model="email" placeholder="name@example.com" />
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe</label>
+				<input
+					type="password"
+					v-model="password"
+					id="exampleInputPassword1"
+					placeholder="Mot de passe"
+				/>
+			</div>
+			<button @click="login" type="submit" class="connect">
+				Go!
+			</button>
 		</form>
 	</div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
 	name: "Formconnect",
 	data() {
 		return {
-			email: "",
-			password: ""
+			token: ""
 		};
 	},
+
 	methods: {
-		onConnect(e) {
+		login(e) {
 			e.preventDefault();
-
-			const connect = {
-				email: this.email,
-				password: this.password
-			};
-
-			this.$emit("connect", connect);
-
-			this.email = "";
-			this.password = "";
+			axios
+				.post(
+					"http://localhost:5000/api/user/login",
+					{
+						email: this.email,
+						password: this.password
+					},
+					{
+						header: {
+							"Content-Type": "application/json"
+						}
+					}
+				)
+				.then(res => {
+					{
+						localStorage.setItem("token", res.data.token);
+					}
+					this.$router.push("/home");
+				})
+				.catch(() => {
+					alert("Votre email ou votre mot de passe est incorrect");
+				});
 		}
 	}
 };
@@ -57,7 +73,7 @@ form {
 }
 
 input {
-	width: 20vh;
+	width: 30vh;
 	align-self: center;
 	margin: 1em;
 }

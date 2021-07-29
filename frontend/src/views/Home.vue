@@ -1,5 +1,8 @@
 <template>
 	<Header />
+	<router-link to="Profil">
+		<button class="go_to">Profil</button>
+	</router-link>
 	<Addpost
 		@toggle-new-post="toggleNewPost"
 		:showNewPost="showPost"
@@ -43,7 +46,7 @@ export default {
 		},
 
 		async newPost(post) {
-			const res = await fetch("api/posts", {
+			const res = await fetch("http://localhost:5000/publication/create", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(post)
@@ -51,17 +54,17 @@ export default {
 
 			const data = await res.json();
 
-			this.posts = [...this.posts, data];
+			this.publications = [...this.publications, data];
 		},
 
 		async deletePost(id) {
-			if (confirm("Etes-vous sûr de vouloir supprimer ce post et ses commentaires?")) {
-				const res = await fetch(`api/posts/${id}`, {
+			if (confirm("Etes-vous sûr de vouloir supprimer cette publication")) {
+				const res = await fetch(`http://localhost:5000/publication/${id}`, {
 					method: "DELETE"
 				});
 
 				res.status === 200
-					? (this.posts = this.posts.filter(post => post.id !== id))
+					? (this.publications = this.posts.filter(publication => publication.id !== id))
 					: alert("erreur de suppression");
 			}
 		},
@@ -72,14 +75,14 @@ export default {
 			}
 		},
 		async fetchPosts() {
-			const res = await fetch("api/posts");
+			const res = await fetch("http://localhost:5000/publication");
 
 			const data = await res.json();
 
 			return data;
 		},
 		async fetchPost(id) {
-			const res = await fetch(`api/posts/${id}`);
+			const res = await fetch(`http://localhost:5000/publications/${id}`);
 
 			const data = await res.json();
 
@@ -92,3 +95,11 @@ export default {
 	}
 };
 </script>
+
+<style>
+button {
+	color: #66a7f2;
+	background: transparent;
+	border: solid 3px #4e77a6;
+}
+</style>

@@ -3,6 +3,7 @@ const express = require("express");
 const userRoutes = require("./routes/user");
 const commentRoutes = require("./routes/comment");
 const publicationRoutes = require("./routes/publication");
+const cors = require("cors");
 
 const app = express();
 //const path = require("path");
@@ -31,6 +32,7 @@ sequelize
 	.catch(() => console.log("Connexion à MysQL échouée !"));
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/user", userRoutes);
 app.use("/api/publication", publicationRoutes);

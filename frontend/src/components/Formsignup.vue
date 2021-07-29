@@ -1,66 +1,95 @@
 <template>
 	<div>
 		<form>
-			<label>Votre prénom</label>
-			<input id="firstName" name="firstName" placeholder="Mon prénom" required />
-			<label>Votre Nom</label>
-			<input id="lastName" name="lastName" placeholder="Mon nom de famille" required />
-			<label id="email" for="email">Votre e-mail</label>
-			<input
-				type="email"
-				v-model="email"
-				name="email"
-				placeholder="monmail@groupomania.fr"
-				required
-			/>
-			<label for="password">Votre mot de passe</label>
-			<input id="password" type="password" v-model="password" name="password" required />
-			<router-link to="/home">
+			<div>
+				<div>
+					<label for="firstName">prénom</label>
+					<input
+						data-label="prenom"
+						type="text"
+						v-model="firstName"
+						id="firstName"
+						placeholder="Votre prénom"
+					/>
+				</div>
+				<div>
+					<label for="lastName">Nom</label>
+					<input type="text" id="lastName" v-model="lastName" placeholder="Votre nom" />
+				</div>
+			</div>
+			<div>
+				<label for="email">adresse Email </label>
 				<input
-					class="connect"
-					type="submit"
-					value="valider l'inscription!"
-					@click="createAccount()"
+					type="email"
+					class="form-control"
+					id="email"
+					v-model="email"
+					placeholder="email@example.com"
 				/>
-			</router-link>
+			</div>
+			<div>
+				<label for="password">Mot de passe</label>
+				<input
+					type="password"
+					v-model="password"
+					id="password"
+					placeholder="Mot de passe"
+				/>
+			</div>
+			<div>
+				<button @click="signup" type="submit" class="connect">
+					S'inscrire
+				</button>
+			</div>
 		</form>
 	</div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-	name: "Formsignup",
+	name: "Signup",
 
+	data() {
+		return {
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
+			isAdmin: false
+		};
+	},
 	methods: {
-		createAccount() {
-			const firstName = document.getElementById("firstName").value;
-			const lastName = document.getElementById("lastName").value;
-			const email = document.getElementById("email").value;
-			const password = document.getElementById("password").value;
-
-			let account = JSON.stringify({
-				firstName: firstName,
-				lastName: lastName,
-				email: email,
-				password: password
-			});
-			console.log(account);
-
-			fetch("http://localhost:5000/api/signup", {
-				method: "POST",
-				headers: {
-					contentType: "application/json"
-				},
-				body: account
-			}).then(res => {
-				if (res.status == 200) {
-					window.location.href = "http://localhost:8080/home/";
-				} else {
-					res.json().then(data => {
-						this.errorMessage = data.message;
+		signup(e) {
+			e.preventDefault();
+			{
+				axios
+					.post(
+						"http://localhost:5000/api/user/signup",
+						{
+							firstName: this.firstName,
+							lastName: this.lastName,
+							email: this.email,
+							password: this.password,
+							isAdmin: this.isAdmin
+						},
+						{
+							header: {
+								"Content-Type": "application/json"
+							}
+						}
+					)
+					.then(() => {
+						this.$router.push("/login");
+						alert("Inscription confirmée");
+					})
+					.catch(() => {
+						alert(
+							"Oups...Un des champs n'a pas été correctement rempli ou l'adresse mail est déjà utilisé"
+						);
 					});
-				}
-			});
+			}
 		}
 	}
 };
@@ -81,6 +110,7 @@ input {
 	width: 20vh;
 	align-self: center;
 	margin: 1em;
+	width: 30vh;
 }
 
 .connect {

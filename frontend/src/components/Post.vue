@@ -1,18 +1,29 @@
 <template>
 	<div>
-		<h3>{{ post.title }}</h3>
-		<p>{{ post.text }}</p>
+		<h2>Prénom et nom de l'auteur</h2>
+		<h3>{{ publication.title }}</h3>
+		<p>{{ publication.text }}</p>
 		<!-- boutons à autoriser uniquement pour le client du compte -->
-		<button class="modify" @click="$emit('modify-post', post.id)">Modifier post</button>
-		<button class="delete" @click="$emit('delete-post', post.id)">Supprimer post</button>
+		<button class="modify" @click="$emit('modify-post', publication.id)">Modifier post</button>
+		<button class="comment">Commenter</button>
+		<button class="delete" @click="$emit('delete-post', publication.id)">Supprimer post</button>
 	</div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 	name: "Post",
 	props: {
 		post: Object
+	},
+	methods: {
+		showPublication() {
+			axios
+				.get(" http://localhost:5000/publication/")
+				.then(response => console.log(response));
+		}
 	}
 };
 </script>
