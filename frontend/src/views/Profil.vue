@@ -5,35 +5,62 @@
 			<button class="back_to">Retour à la page principale</button>
 		</router-link>
 		<div>
-			<p>Prénom:</p>
-			<button>Modifier</button>
-		</div>
-		<div>
-			<p>Nom:</p>
-			<button>Modifier</button>
-		</div>
-		<div>
-			<p>Email:</p>
-			<button>Modifier</button>
+			<h1>
+				Hey! <br />
+				Coucou {{ firstName }} {{ lastName }}!
+			</h1>
 		</div>
 		<div>
 			<button class="delete" @click="deleteAccount">Supprimer mon compte</button>
 		</div>
+		<Footer />
 	</div>
 </template>
 
 <script>
+import axios from "axios";
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
 	name: "Profil",
 	components: {
-		Header
+		Header,
+		Footer
+	},
+	data() {
+		return {
+			token: "",
+			UserId: "",
+			firstName: "",
+			lastName: ""
+		};
+	},
+	mounted() {
+		this.firstName = localStorage.getItem("firstName");
+		this.lastName = localStorage.getItem("lastName");
 	},
 	methods: {
-		deleteAccount(e) {
-			e.preventDefault();
-			confirm("Êtes-vous sûr de vouloir supprimmer définitivement votre compte?");
+		deleteAccount() {
+			const token = localStorage.getItem("token");
+			const id = localStorage.getItem("userId");
+
+			axios
+				.delete("http://localhost:5000/api/auth/" + id, {
+					headers: {
+						"content-type": "application/json",
+						Authorization: `Bearer ${token}`
+					}
+				})
+				.then(response => {
+					if (response) {
+						localStorage.clear();
+						this.$router.push("/");
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
 	}
 };

@@ -27,7 +27,10 @@ export default {
 	name: "Formconnect",
 	data() {
 		return {
-			token: ""
+			token: "",
+			userId: "",
+			firstName: "",
+			lastName: ""
 		};
 	},
 
@@ -50,6 +53,9 @@ export default {
 				.then(res => {
 					{
 						localStorage.setItem("token", res.data.token);
+						localStorage.setItem("userId", res.data.userId);
+						localStorage.setItem("firstName", res.data.firstName);
+						localStorage.setItem("lastName", res.data.lastName);
 					}
 					this.$router.push("/home");
 				})
