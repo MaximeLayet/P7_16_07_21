@@ -1,12 +1,17 @@
 <template>
 	<router-link to="/">
-		<button>Se déconnecter</button>
+		<button @click="logout">Se déconnecter</button>
 	</router-link>
 </template>
 
 <script>
 export default {
-	name: "Disconnect"
+	name: "Disconnect",
+	methods: {
+		logout() {
+			localStorage.clear();
+		}
+	}
 };
 </script>
 

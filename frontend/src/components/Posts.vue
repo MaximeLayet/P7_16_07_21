@@ -1,11 +1,8 @@
 <template>
 	<div>
-		<div v-bind:key="publication.id" v-for="publication in publications">
-			<Post
-				@delete-post="$emit('delete-post', post.id)"
-				@modify-post="$emit('modify-post', post.id)"
-				:post="post"
-			/>
+		<h1>Qu'est-ce que vos collègues racontent</h1>
+		<div v-bind:key="publication" v-for="publication in publications">
+			<Post />
 		</div>
 	</div>
 </template>
@@ -15,8 +12,10 @@ import Post from "@/components/Post.vue";
 
 export default {
 	name: "Posts",
-	props: {
-		posts: Array
+	data() {
+		return {
+			posts: []
+		};
 	},
 	components: {
 		Post

@@ -1,6 +1,7 @@
 const { sequelize } = require("../models/Publication");
 const Publication = require("../models/Publication");
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 exports.getAllPublication = (req, res, next) => {
 	sequelize;
@@ -12,18 +13,21 @@ exports.getAllPublication = (req, res, next) => {
 exports.createPublication = (req, res, next) => {
 	const publication = new Publication({
 		title: req.body.title,
-		text: req.body.text
+		text: req.body.text,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		userId: req.body.userId
 	});
 	publication
 		.save()
-		.then(() => res.status(200).json({ message: "Publication créé" }))
+		.then(() => res.status(200).json({ message: "Publication créée" }))
 		.catch(error => res.status(400).json({ error }));
 };
 
 exports.deleteOnePublication = (req, res, next) => {
 	Publication.destroy({ where: { pubId: req.params.pubId } })
 		.then(() => {
-			res.status(200).send("Publaction supprimé");
+			res.status(200).send("Publication supprimée");
 		})
 		.catch(error => res.status(500));
 };

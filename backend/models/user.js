@@ -44,5 +44,3 @@ let test = async function test() {
 test();
 
 module.exports = User;
-
-//TODO régler le souci pour creer BD des posts(publication)

@@ -3,10 +3,7 @@
 		<h2>Prénom et nom de l'auteur</h2>
 		<h3>{{ publication.title }}</h3>
 		<p>{{ publication.text }}</p>
-		<!-- boutons à autoriser uniquement pour le client du compte -->
-		<button class="modify" @click="$emit('modify-post', publication.id)">Modifier post</button>
-		<button class="comment">Commenter</button>
-		<button class="delete" @click="$emit('delete-post', publication.id)">Supprimer post</button>
+		<p>humeur de {{ firstName }}{{ lastName }}</p>
 	</div>
 </template>
 
@@ -21,7 +18,7 @@ export default {
 	methods: {
 		showPublication() {
 			axios
-				.get(" http://localhost:5000/publication/")
+				.get(" http://localhost:5000/api/publication/")
 				.then(response => console.log(response));
 		}
 	}

@@ -47,10 +47,8 @@
 
 <script>
 import axios from "axios";
-
 export default {
 	name: "Signup",
-
 	data() {
 		return {
 			firstName: "",
@@ -100,19 +98,16 @@ div {
 	display: flex;
 	flex-direction: column;
 }
-
 form {
 	display: flex;
 	flex-direction: column;
 }
-
 input {
 	width: 20vh;
 	align-self: center;
 	margin: 1em;
 	width: 30vh;
 }
-
 .connect {
 	border-radius: 00.5em;
 	padding-block: 0.5em;

@@ -2,10 +2,10 @@ POST http://localhost:5000/api/user/signup
 Content-Type: application/json
 
 {
-    "email":"test3@test.mail",
-    "password":"123456",
-    "firstName":"test",
-    "lastName":"test145",
+    "email":"test34@test.mail",
+    "password":"azerty",
+    "firstName":"Lenouveau",
+    "lastName":"Code",
     "isAdmin":false
 }
 

@@ -28,12 +28,12 @@ export default {
 	data() {
 		return {
 			token: "",
-			userId: "",
 			firstName: "",
-			lastName: ""
+			lastName: "",
+			email: "",
+			userId: ""
 		};
 	},
-
 	methods: {
 		login(e) {
 			e.preventDefault();
@@ -53,9 +53,10 @@ export default {
 				.then(res => {
 					{
 						localStorage.setItem("token", res.data.token);
-						localStorage.setItem("userId", res.data.userId);
 						localStorage.setItem("firstName", res.data.firstName);
 						localStorage.setItem("lastName", res.data.lastName);
+						localStorage.setItem("userId", res.data.userId);
+						localStorage.setItem("email", res.data.email);
 					}
 					this.$router.push("/home");
 				})
@@ -72,18 +73,15 @@ div {
 	display: flex;
 	flex-direction: column;
 }
-
 form {
 	display: flex;
 	flex-direction: column;
 }
-
 input {
 	width: 30vh;
 	align-self: center;
 	margin: 1em;
 }
-
 .connect {
 	border-radius: 100%;
 	width: 3em;

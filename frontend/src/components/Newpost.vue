@@ -1,50 +1,91 @@
 <template>
-	<form @submit="onSubmit">
-		<div class="new-post">
-			<label>Titre</label>
-			<input
-				class="title"
-				type="text"
-				v-model="title"
-				name="title"
-				placeholder="Ajouter un titre"
-				required
-			/>
+	<div>
+		<div>
+			<h1>Exprimez-vous!</h1>
 		</div>
-		<div class="new-post">
-			<label>Votre post</label>
-			<textarea v-model="text" name="text" placeholder="Votre article ici..." required />
-		</div>
+		<form @submit.prevent="onSubmit">
+			<div class="new-post">
+				<label>Titre</label>
+				<input
+					class="title"
+					type="text"
+					v-model="title"
+					name="title"
+					placeholder="Ajouter un titre"
+					required
+				/>
+			</div>
+			<div class="new-post">
+				<label>Votre post</label>
+				<textarea v-model="text" name="text" placeholder="Votre article ici..." required />
+			</div>
 
-		<input class="submit" type="submit" value="Publier" />
-	</form>
+			<button class="submit" type="submit">Publier</button>
+		</form>
+	</div>
 </template>
 
 <script>
-// import axios from "axios";
+//import axios from "axios";
 
 export default {
 	name: "Newpost",
+	props: ["publication", "onSubmits"],
 	data() {
 		return {
 			title: "",
-			text: ""
+			text: "",
+			userId: ""
 		};
 	},
 	methods: {
-		onSubmit(e) {
-			e.preventDefault();
-
-			const newPost = {
-				title: this.title,
-				text: this.text
-			};
-
-			this.$emit("new-post", newPost);
-
-			this.title = "";
-			this.text = "";
+		onSubmit() {
+			console.log("cccc");
+			fetch("http://localhost:5000/api/publication/", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: console.log(`Bearer ${localStorage.getItem("token")}`)
+				},
+				body: JSON.stringify({ userId: this.userId, title: this.title, text: this.text })
+			})
+				.then(response => response.json())
+				.catch(error => alert(error));
 		}
+		// onSubmit(e) {
+		// 	e.preventDefault();
+		// 	const token = localStorage.getItem("token");
+		// 	const firstName = localStorage.getItem("firstName");
+		// 	const lastName = localStorage.getItem("lastName");
+		// 	const userId = localStorage.getItem("userId");
+
+		// 	const formData = new FormData();
+		// 	formData.set("title", this.title);
+		// 	formData.set("text", this.text);
+		// 	formData.set("firstName", firstName);
+		// 	formData.set("lastName", lastName);
+		// 	formData.set("userId", userId);
+
+		// 	axios
+		// 		.post("http://localhost:5000/api/publication/", formData, {
+		// 			headers: {
+		// 				"Content-type": "application/json",
+		// 				Authorization: `Bearer ${token}`
+		// 			}
+		// 		})
+		// 		.then(response => {
+		// 			if (response) {
+		// 				alert("Ta publication a été crée!");
+		// 				this.$router.push("/home");
+		// 			}
+		// 		})
+		// 		.catch(error => {
+		// 			if (error) {
+		// 				alert("Ca n'a pas fonctionné..Cheh t'es trop nul!!");
+		// 				console.log(error);
+		// 			}
+		// 		});
+		// }
 	}
 };
 </script>
