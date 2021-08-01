@@ -20,7 +20,7 @@
 				<textarea v-model="text" name="text" placeholder="Votre article ici..." required />
 			</div>
 
-			<button class="submit" type="submit">Publier</button>
+			<input class="submit" type="submit" value="Publier" />
 		</form>
 	</div>
 </template>
@@ -30,62 +30,25 @@
 
 export default {
 	name: "Newpost",
-	props: ["publication", "onSubmits"],
 	data() {
 		return {
 			title: "",
-			text: "",
-			userId: ""
+			text: ""
 		};
 	},
 	methods: {
 		onSubmit() {
-			console.log("cccc");
-			fetch("http://localhost:5000/api/publication/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: console.log(`Bearer ${localStorage.getItem("token")}`)
-				},
-				body: JSON.stringify({ userId: this.userId, title: this.title, text: this.text })
-			})
-				.then(response => response.json())
-				.catch(error => alert(error));
+			const addPublication = {
+				title: this.title,
+				text: this.text
+			};
+
+			console.log(addPublication);
+
+			this.$emit("new-publication", addPublication);
+
+			(this.title = ""), (this.text = "");
 		}
-		// onSubmit(e) {
-		// 	e.preventDefault();
-		// 	const token = localStorage.getItem("token");
-		// 	const firstName = localStorage.getItem("firstName");
-		// 	const lastName = localStorage.getItem("lastName");
-		// 	const userId = localStorage.getItem("userId");
-
-		// 	const formData = new FormData();
-		// 	formData.set("title", this.title);
-		// 	formData.set("text", this.text);
-		// 	formData.set("firstName", firstName);
-		// 	formData.set("lastName", lastName);
-		// 	formData.set("userId", userId);
-
-		// 	axios
-		// 		.post("http://localhost:5000/api/publication/", formData, {
-		// 			headers: {
-		// 				"Content-type": "application/json",
-		// 				Authorization: `Bearer ${token}`
-		// 			}
-		// 		})
-		// 		.then(response => {
-		// 			if (response) {
-		// 				alert("Ta publication a été crée!");
-		// 				this.$router.push("/home");
-		// 			}
-		// 		})
-		// 		.catch(error => {
-		// 			if (error) {
-		// 				alert("Ca n'a pas fonctionné..Cheh t'es trop nul!!");
-		// 				console.log(error);
-		// 			}
-		// 		});
-		// }
 	}
 };
 </script>

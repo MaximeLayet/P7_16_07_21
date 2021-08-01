@@ -33,9 +33,11 @@ exports.deleteOnePublication = (req, res, next) => {
 };
 
 exports.getOnePublication = (req, res, next) => {
-	Publication.findOne({
-		where: { pubId: req.params.pubId },
-		includes: [{ model: User, attributes: ["id", "firstName", "lastName"] }]
+	Publication.findByPk(req.params.pubId, {
+		include: Comment
+
+		// where: { pubId: req.params.pubId },
+		// includes: [{ model: User, attributes: ["id", "firstName", "lastName"] }]
 	})
 		.then(publication => res.status(200).json(publication))
 		.catch(error => res.status(400).json({ error }));

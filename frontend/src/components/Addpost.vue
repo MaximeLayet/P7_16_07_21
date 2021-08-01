@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<button :style="{ background: color }" @click="onClick()">{{ title }}</button>
+		<button :style="{ background: color }" @click="onClick()">{{ state }}</button>
 	</div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 		}
 	},
 	props: {
-		title: String,
+		state: String,
 		color: String
 	}
 };

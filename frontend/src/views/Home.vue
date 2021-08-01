@@ -6,13 +6,13 @@
 	<Addpost
 		@toggle-new-post="toggleNewPost"
 		:showNewPost="showPost"
-		:title="showNewPost ? 'Fermer' : 'Ajouter un post'"
+		:state="showNewPost ? 'Fermer' : 'Ajouter un post'"
 		:color="showNewPost ? 'Crimson' : 'CornflowerBlue'"
 	/>
 	<div v-show="showNewPost">
-		<Newpost />
+		<Newpost @new-publication="newPublication" />
 	</div>
-	<Posts />
+	<Posts :publications="publications" />
 	<Footer />
 </template>
 
@@ -36,13 +36,24 @@ export default {
 	},
 	data() {
 		return {
-			publication: [],
+			publications: [],
 			showNewPost: false
 		};
 	},
 	methods: {
 		toggleNewPost() {
 			this.showNewPost = !this.showNewPost;
+		},
+		async newPublication(publication) {
+			const res = await fetch("http://localhost:5000/api/publication/", {
+				method: "POST",
+				headers: { "Content-type": "application/json" },
+				body: JSON.stringify(publication)
+			});
+
+			const data = await res.json();
+			this.publications = [...this.publications, data];
+			alert("publication crée");
 		}
 	}
 };

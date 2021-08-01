@@ -30,4 +30,3 @@ Publication.sync()
 	.catch(error => console.error("erreur", error));
 
 module.exports = Publication;
-//, onDelete: "cascade"
