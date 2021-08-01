@@ -54,6 +54,7 @@ export default {
 			const data = await res.json();
 			this.publications = [...this.publications, data];
 			alert("publication crée");
+			window.location.reload();
 		}
 	}
 };

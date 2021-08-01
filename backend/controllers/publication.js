@@ -5,7 +5,7 @@ const Comment = require("../models/Comment");
 
 exports.getAllPublication = (req, res, next) => {
 	sequelize;
-	Publication.findAll()
+	Publication.findAll({ order: [["createdAt", "DESC"]] })
 		.then(publications => res.status(200).json(publications))
 		.catch(error => res.status(400).json({ error }));
 };
