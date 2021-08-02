@@ -1,48 +1,33 @@
 <template>
 	<div>
-		<div>
-			<h1>Exprimez-vous!</h1>
-		</div>
 		<form @submit.prevent="onSubmit">
 			<div class="new-post">
-				<label>Titre</label>
-				<input
-					class="title"
-					type="text"
-					v-model="title"
-					name="title"
-					placeholder="Ajouter un titre"
-					required
-				/>
-			</div>
-			<div class="new-post">
-				<label>Votre post</label>
-				<textarea v-model="text" name="text" placeholder="Votre article ici..." required />
+				<label>Votre commentaire</label>
+				<textarea class="comment" type="text" v-model="content" name="content" required />
 			</div>
 
-			<input class="submit" type="submit" value="Publier" />
+			<input class="submit" type="submit" value="Valider" />
 		</form>
 	</div>
 </template>
 
 <script>
 export default {
-	name: "Newpost",
+	name: "Newcomment",
 	data() {
 		return {
-			title: "",
-			text: ""
+			content: ""
 		};
 	},
 	methods: {
 		onSubmit() {
-			const addPublication = {
-				title: this.title,
-				text: this.text
+			const addComment = {
+				content: this.content
 			};
+			console.log(addComment);
 
-			this.$emit("new-publication", addPublication);
-			(this.title = ""), (this.text = "");
+			this.$emit("new-comment", addComment);
+			this.content = "";
 		}
 	}
 };
@@ -59,8 +44,9 @@ input {
 	border-radius: 0 0 0 7px;
 	margin-bottom: 1em;
 }
-input.title {
-	width: 30vh;
+input.comment {
+	width: 50vh;
+	height: 15vh;
 	align-self: center;
 }
 
@@ -77,6 +63,7 @@ input.submit {
 	color: #4e77a6;
 	border: 3px solid #4e77a6;
 	cursor: pointer;
+	width: 30vh;
 }
 
 div {

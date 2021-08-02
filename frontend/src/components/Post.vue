@@ -60,21 +60,4 @@ h3 {
 	display: flex;
 	margin-left: 2em;
 }
-
-button {
-	margin: 0.5em;
-	border: none;
-	color: #fff;
-	padding: 0.5em;
-	border-radius: 2em;
-	cursor: pointer;
-}
-
-.delete {
-	background: linear-gradient(#eb4839, #f21905);
-}
-
-.modify {
-	background: linear-gradient(#66a7f2, #4e77a6);
-}
 </style>

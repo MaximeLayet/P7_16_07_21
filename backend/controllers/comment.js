@@ -5,14 +5,16 @@ const Publication = require("../models/Publication");
 
 exports.getAllComment = (req, res, next) => {
 	sequelize;
-	Comment.findAll()
+	Comment.findAll({ order: [["createdAt", "DESC"]] })
 		.then(comments => res.status(200).json(comments))
 		.catch(error => res.status(400).json({ error }));
 };
 
 exports.createComment = (req, res, next) => {
 	const comment = new Comment({
-		content: req.body.content
+		content: req.body.content,
+		users_id: req.body.users_id,
+		publications_id: req.body.publications_id
 	});
 	comment
 		.save()

@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Welcome from "../views/Welcome.vue";
 import Profil from "../views/Profil.vue";
-import Login from "../views/Login.vue";
+import Login from "../components/Login.vue";
 import Signup from "../components/Signup";
 import Onepost from "../views/Onepost";
 

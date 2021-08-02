@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 // Middleware d'authentification pour sécuriser les routes de l'API
 router.get("/", auth, commentCtrl.getAllComment);
 router.get("/:commentId", auth, commentCtrl.getOneComment);
-router.post("/create", auth, commentCtrl.createComment);
+router.post("/create", commentCtrl.createComment);
 router.put("/:commentId", auth, commentCtrl.modifyOneComment);
 router.delete("/:commentId", auth, commentCtrl.deleteOneComment);
 

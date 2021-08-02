@@ -79,7 +79,7 @@ export default {
 						}
 					)
 					.then(() => {
-						this.$router.push("/login");
+						this.$router.push("/");
 						alert("Inscription confirmée");
 					})
 					.catch(() => {

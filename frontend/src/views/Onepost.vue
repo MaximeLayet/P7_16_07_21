@@ -11,9 +11,18 @@
 			<div>
 				<h2>{{ title }}</h2>
 				<p>{{ text }}</p>
+				<div v-show="showNewComment">
+					<Newcomment @new-comment="newComment" />
+				</div>
 			</div>
-			<Commentbutton />
+			<Commentbutton
+				@toggle-new-comment="toggleNewComment"
+				:showNewComment="showCommentForm"
+				:state="showNewComment ? 'Fermer' : 'Commenter'"
+				:color="showNewComment ? 'Crimson' : 'CornflowerBlue'"
+			/>
 		</div>
+		<Comments :comments="comments" />
 		<Footer />
 	</div>
 </template>
@@ -23,23 +32,36 @@ import axios from "axios";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import Commentbutton from "../components/Commentbutton.vue";
+import Newcomment from "../components/Newcomment.vue";
+import Comments from "../components/Comments.vue";
 export default {
 	components: {
 		Footer,
 		Header,
-		Commentbutton
+		Commentbutton,
+		Newcomment,
+		Comments
+	},
+	props: {
+		showCommentForm: Boolean
 	},
 	data() {
 		return {
+			showNewComment: false,
 			publications: [],
+			comment: [],
 			title: "",
-			text: ""
+			text: "",
+			content: ""
 		};
 	},
 	mounted() {
 		this.getThePublication();
 	},
 	methods: {
+		toggleNewComment() {
+			this.showNewComment = !this.showNewComment;
+		},
 		getThePublication() {
 			const token = localStorage.getItem("token");
 			const pubId = this.$route.params.id;
@@ -59,6 +81,18 @@ export default {
 				.catch(error => {
 					console.log(error);
 				});
+		},
+		async newComment(comment) {
+			const res = await fetch("http://localhost:5000/api/comment/create", {
+				method: "POST",
+				headers: { "Content-type": "application/json" },
+				body: JSON.stringify(comment)
+			});
+
+			const data = await res.json();
+			this.comments = [this.comments, data];
+			alert("commentaire posté");
+			window.location.reload;
 		}
 	}
 };
