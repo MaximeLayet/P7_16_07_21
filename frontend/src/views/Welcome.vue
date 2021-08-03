@@ -1,3 +1,4 @@
+//view qui sert de page d'accueil
 <template>
 	<img src="../assets/icon-above-font.png" />
 	<Header />

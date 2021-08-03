@@ -1,3 +1,4 @@
+//Formulaire qui permet l'inscription à l'appli
 <template>
 	<div>
 		<form>
@@ -59,6 +60,7 @@ export default {
 		};
 	},
 	methods: {
+		//fonction qui permet l'inscription au site (avec axios)
 		signup(e) {
 			e.preventDefault();
 			{

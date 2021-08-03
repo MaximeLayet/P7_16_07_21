@@ -1,3 +1,4 @@
+//Formulaire qui permet de créer sa publication
 <template>
 	<div>
 		<div>

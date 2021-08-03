@@ -1,3 +1,4 @@
+//Component qui permet l'affichage ou non d'un formulaire de commentaire
 <template>
 	<div>
 		<button :style="{ background: color }" @click="onClick()">{{ state }}</button>

@@ -1,3 +1,4 @@
+//Footer avec une fonction qui permet d'afficher l'année de maniere dynamique
 <template>
 	<footer>&copy; {{ copyrightYear }}</footer>
 </template>

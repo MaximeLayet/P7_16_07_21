@@ -5,7 +5,7 @@ const Comment = require("../models/Comment");
 
 exports.getAllPublication = (req, res, next) => {
 	sequelize;
-	Publication.findAll({ order: [["createdAt", "DESC"]] })
+	Publication.findAll({ order: [["createdAt", "DESC"]], include: Comment })
 		.then(publications => res.status(200).json(publications))
 		.catch(error => res.status(400).json({ error }));
 };
@@ -35,9 +35,6 @@ exports.deleteOnePublication = (req, res, next) => {
 exports.getOnePublication = (req, res, next) => {
 	Publication.findByPk(req.params.pubId, {
 		include: Comment
-
-		// where: { pubId: req.params.pubId },
-		// includes: [{ model: User, attributes: ["id", "firstName", "lastName"] }]
 	})
 		.then(publication => res.status(200).json(publication))
 		.catch(error => res.status(400).json({ error }));

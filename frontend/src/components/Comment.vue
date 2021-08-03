@@ -1,3 +1,4 @@
+//Component qui va permettre d'afficher tous les commentaires d'une publication
 <template>
 	<div>
 		<div class="comment" :key="comment.id" v-for="comment in comments">
@@ -24,6 +25,7 @@ export default {
 		this.showAllComments();
 	},
 	methods: {
+		//fonction qui permet l'affichage des commentaires (avec axios)
 		showAllComments() {
 			const token = localStorage.getItem("token");
 			axios
@@ -40,6 +42,7 @@ export default {
 					console.log(error);
 				});
 		},
+		//fonction qui permet la suppression d'un commentaire (avec axios)
 		deleteComment() {
 			const token = localStorage.getItem("token");
 			const commentId = this.$route.params.commentId;

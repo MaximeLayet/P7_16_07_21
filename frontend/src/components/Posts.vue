@@ -1,3 +1,4 @@
+//Component qui permet la mise en place l'affichage de tous les commentaires
 <template>
 	<div>
 		<h1>Qu'est-ce que vos collègues racontent</h1>

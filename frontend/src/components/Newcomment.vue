@@ -1,3 +1,4 @@
+//Formulaire de création de commentaire
 <template>
 	<div>
 		<form @submit.prevent="onSubmit">
@@ -24,7 +25,6 @@ export default {
 			const addComment = {
 				content: this.content
 			};
-			console.log(addComment);
 
 			this.$emit("new-comment", addComment);
 			this.content = "";

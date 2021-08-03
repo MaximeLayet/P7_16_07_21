@@ -1,3 +1,5 @@
+//Component qui recoit le component Formconnect. Button qui permet d'afficher ou non le formulaire
+de login
 <template>
 	<div v-show="inHomePage">
 		<div>

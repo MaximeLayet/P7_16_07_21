@@ -1,3 +1,5 @@
+// Mise en place d'un bouton qui permet d'afficher ou non le formulaire de publication
+
 <template>
 	<div>
 		<button :style="{ background: color }" @click="onClick()">{{ state }}</button>

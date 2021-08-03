@@ -1,10 +1,14 @@
+//Header avec affichage ou non ddes boutons "Login", "Dsiconnect" et "signup" selon la page où l'on
+est
 <template>
-	<h1>
-		Bienvenue sur Groupomania
-	</h1>
-	<Login v-show="homePage" />
-	<Disconnect v-show="inApp" />
-	<Signup v-show="homePage" />
+	<div>
+		<h1>
+			Bienvenue sur Groupomania
+		</h1>
+		<Login v-show="homePage" />
+		<Disconnect v-show="inApp" />
+		<Signup v-show="homePage" />
+	</div>
 </template>
 
 <script>

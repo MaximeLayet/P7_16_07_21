@@ -1,3 +1,4 @@
+//Component qui permet la deconnection de l'appli
 <template>
 	<router-link to="/">
 		<button @click="logout">Se déconnecter</button>

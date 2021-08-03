@@ -1,3 +1,4 @@
+//view qui permet d'afficher le profil de l'utilisateur
 <template>
 	<div>
 		<Header />

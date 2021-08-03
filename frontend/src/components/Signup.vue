@@ -1,3 +1,4 @@
+//Compo qui permet d'afficher ou non le formulaire d'inscription
 <template>
 	<div v-show="inHomePage">
 		<div>

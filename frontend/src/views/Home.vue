@@ -1,19 +1,22 @@
+//Views qui fait office de menu principale
 <template>
-	<Header />
-	<router-link to="Profil">
-		<button class="go_to">Profil</button>
-	</router-link>
-	<Addpost
-		@toggle-new-post="toggleNewPost"
-		:showNewPost="showPost"
-		:state="showNewPost ? 'Fermer' : 'Ajouter un post'"
-		:color="showNewPost ? 'Crimson' : 'CornflowerBlue'"
-	/>
-	<div v-show="showNewPost">
-		<Newpost @new-publication="newPublication" />
+	<div>
+		<Header />
+		<router-link to="Profil">
+			<button class="go_to">Profil</button>
+		</router-link>
+		<Addpost
+			@toggle-new-post="toggleNewPost"
+			:showNewPost="showPost"
+			:state="showNewPost ? 'Fermer' : 'Ajouter un post'"
+			:color="showNewPost ? 'Crimson' : 'CornflowerBlue'"
+		/>
+		<div v-show="showNewPost">
+			<Newpost @new-publication="newPublication" />
+		</div>
+		<Posts :publications="publications" />
+		<Footer />
 	</div>
-	<Posts :publications="publications" />
-	<Footer />
 </template>
 
 <script>
@@ -44,7 +47,7 @@ export default {
 		toggleNewPost() {
 			this.showNewPost = !this.showNewPost;
 		},
-
+		//Fonction qui permet de poster une publication
 		async newPublication(publication) {
 			const res = await fetch("http://localhost:5000/api/publication/", {
 				method: "POST",

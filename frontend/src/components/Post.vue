@@ -1,3 +1,4 @@
+//Component qui permet d'afficher toutes les publications
 <template>
 	<div>
 		<div class="pub" :key="publication.id" v-for="publication in publications">

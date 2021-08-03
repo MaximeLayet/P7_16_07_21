@@ -1,3 +1,4 @@
+//View qui a pour fonction d'afficher une publication de maniere individuelle
 <template>
 	<div>
 		<Header />

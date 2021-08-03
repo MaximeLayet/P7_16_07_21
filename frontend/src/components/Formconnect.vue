@@ -1,3 +1,4 @@
+//Formulaire qui va permettre la connection à l'appli
 <template>
 	<div>
 		<form>
@@ -35,6 +36,7 @@ export default {
 		};
 	},
 	methods: {
+		//fonction POst qui permet la connection (avec axios)
 		login(e) {
 			e.preventDefault();
 			axios

@@ -1,3 +1,4 @@
+//Component qui reçoit le compo Comment et donc met en place l'affichage des commentaires
 <template>
 	<div>
 		<h4>Réactions</h4>
