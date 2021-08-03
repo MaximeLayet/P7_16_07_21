@@ -31,18 +31,20 @@ export default {
 	data() {
 		return {
 			title: "",
-			text: ""
+			text: "",
+			userId: localStorage.getItem("userId")
 		};
 	},
 	methods: {
 		onSubmit() {
 			const addPublication = {
 				title: this.title,
-				text: this.text
+				text: this.text,
+				userId: this.userId
 			};
 
 			this.$emit("new-publication", addPublication);
-			(this.title = ""), (this.text = "");
+			(this.title = ""), (this.text = ""), (this.userId = localStorage.getItem("userId"));
 		}
 	}
 };

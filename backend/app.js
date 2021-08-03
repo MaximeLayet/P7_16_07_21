@@ -6,12 +6,25 @@ const publicationRoutes = require("./routes/publication");
 const cors = require("cors");
 
 const app = express();
-//const path = require("path");
+const expressRateLimit = require("express-rate-limit");
+
+const limiter = expressRateLimit({
+	max: 100,
+	windowsMs: 15 * 60 * 1000,
+	messsage: "Trop de requêtes depuis votre adresse IP, merci de réessayer un peu plus tard"
+});
+app.use("/api", limiter);
+
+const dotenv = require("dotenv");
+dotenv.config();
+const dataBase = process.env.DATABASE;
+const user = process.env.USER;
+const password = process.env.PASSWORD;
 
 // Connection database
 
 const { Sequelize } = require("sequelize");
-const sequelize = new Sequelize("groupomania", "root", "Aeleonieve201195", {
+const sequelize = new Sequelize(dataBase, user, password, {
 	host: "localhost",
 	dialect: "mysql"
 });

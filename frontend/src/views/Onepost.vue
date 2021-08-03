@@ -4,7 +4,7 @@
 		<router-link to="/home">
 			<button class="back_to">Retour à la page principale</button>
 		</router-link>
-		<router-link to="Profil">
+		<router-link to="/Profil">
 			<button class="go_to">Profil</button>
 		</router-link>
 		<div class="pub">
@@ -21,6 +21,9 @@
 				:state="showNewComment ? 'Fermer' : 'Commenter'"
 				:color="showNewComment ? 'Crimson' : 'CornflowerBlue'"
 			/>
+			<button class="delete" @click="deletePublication">
+				Supprimer ma publication
+			</button>
 		</div>
 		<Comments :comments="comments" />
 		<Footer />
@@ -62,10 +65,28 @@ export default {
 		toggleNewComment() {
 			this.showNewComment = !this.showNewComment;
 		},
+		deletePublication() {
+			const token = localStorage.getItem("token");
+			const pubId = this.$route.params.id;
+
+			axios
+				.delete(`http://localhost:5000/api/publication/${pubId}`, {
+					headers: {
+						"Content-type": "application/json",
+						Authorization: `Bearer ${token}`
+					}
+				})
+				.then(res => {
+					if (res) {
+						alert("Publication supprimée");
+						this.$router.push("/home");
+					}
+				});
+		},
 		getThePublication() {
 			const token = localStorage.getItem("token");
 			const pubId = this.$route.params.id;
-			console.log(pubId);
+
 			axios
 				.get(`http://localhost:5000/api/publication/${pubId}`, {
 					headers: {
@@ -92,7 +113,7 @@ export default {
 			const data = await res.json();
 			this.comments = [this.comments, data];
 			alert("commentaire posté");
-			window.location.reload;
+			window.location.reload();
 		}
 	}
 };

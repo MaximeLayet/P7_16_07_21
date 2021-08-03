@@ -24,6 +24,10 @@ const Publication = sequelize.define("Publication", {
 
 Publication.belongsTo(User, { foreignKey: "userId", onDelete: "cascade" });
 User.hasMany(Publication, { foreignKey: "userId", onDelete: "cascade" });
+Publication.belongsTo(User, { foreignKey: "firstName", onDelete: "cascade" });
+User.hasMany(Publication, { foreignKey: "firstName", onDelete: "cascade" });
+Publication.belongsTo(User, { foreignKey: "lastName", onDelete: "cascade" });
+User.hasMany(Publication, { foreignKey: "lastName", onDelete: "cascade" });
 
 Publication.sync()
 	.then(() => console.log("La table Publication a été crée "))

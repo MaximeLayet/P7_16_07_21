@@ -2,6 +2,9 @@
 	<div>
 		<div class="comment" :key="comment.id" v-for="comment in comments">
 			<p>{{ comment.content }}</p>
+			<button class="delete" @click="deleteComment">
+				Supprimer mon commentaire
+			</button>
 		</div>
 	</div>
 </template>
@@ -35,6 +38,25 @@ export default {
 				})
 				.catch(error => {
 					console.log(error);
+				});
+		},
+		deleteComment() {
+			const token = localStorage.getItem("token");
+			const commentId = this.$route.params.commentId;
+			console.log(commentId);
+
+			axios
+				.delete(`http://localhost:5000/api/comment/${commentId}`, {
+					headers: {
+						"Content-type": "application/json",
+						Authorization: `Bearer ${token}`
+					}
+				})
+				.then(res => {
+					if (res) {
+						alert("Commentaire supprimé");
+						window.location.reload();
+					}
 				});
 		}
 	}

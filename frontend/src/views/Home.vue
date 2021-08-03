@@ -44,6 +44,7 @@ export default {
 		toggleNewPost() {
 			this.showNewPost = !this.showNewPost;
 		},
+
 		async newPublication(publication) {
 			const res = await fetch("http://localhost:5000/api/publication/", {
 				method: "POST",
@@ -52,7 +53,9 @@ export default {
 			});
 
 			const data = await res.json();
+
 			this.publications = [...this.publications, data];
+
 			alert("publication crée");
 			window.location.reload();
 		}

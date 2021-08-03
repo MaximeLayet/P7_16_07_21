@@ -4,7 +4,7 @@
 			<router-link class="go-to" :to="`/onePost/${publication.pubId}`">
 				<h2>{{ publication.title }}</h2>
 				<p>{{ publication.text }}</p>
-				<!-- <p>posté le {{ publication.createdAt }}</p> -->
+				<p>{{ publication.userId }}</p>
 			</router-link>
 		</div>
 	</div>
