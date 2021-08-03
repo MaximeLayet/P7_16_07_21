@@ -16,7 +16,8 @@ exports.createPublication = (req, res, next) => {
 		text: req.body.text,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		userId: req.body.userId
+		userId: req.body.userId,
+		pubId: req.body.pubId
 	});
 	publication
 		.save()

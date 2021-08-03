@@ -53,7 +53,7 @@ export default {
 		return {
 			showNewComment: false,
 			publications: [],
-			comment: [],
+			comments: [],
 			title: "",
 			text: "",
 			content: ""
@@ -96,6 +96,9 @@ export default {
 					}
 				})
 				.then(res => {
+					{
+						localStorage.setItem("pubId", res.data.pubId);
+					}
 					this.publications = res.data;
 					this.title = this.publications.title;
 					this.text = this.publications.text;

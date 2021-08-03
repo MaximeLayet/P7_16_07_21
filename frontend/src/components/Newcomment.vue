@@ -17,17 +17,23 @@ export default {
 	name: "Newcomment",
 	data() {
 		return {
-			content: ""
+			content: "",
+			userId: localStorage.getItem("userId"),
+			pubId: localStorage.getItem("pubId")
 		};
 	},
 	methods: {
 		onSubmit() {
 			const addComment = {
-				content: this.content
+				content: this.content,
+				userId: this.userId,
+				pubId: this.pubId
 			};
 
 			this.$emit("new-comment", addComment);
-			this.content = "";
+			(this.content = ""),
+				(this.userId = localStorage.getItem("userId")),
+				(this.pubId = localStorage.getItem("pubId"));
 		}
 	}
 };

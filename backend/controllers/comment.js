@@ -13,8 +13,8 @@ exports.getAllComment = (req, res, next) => {
 exports.createComment = (req, res, next) => {
 	const comment = new Comment({
 		content: req.body.content,
-		users_id: req.body.users_id,
-		publications_id: req.body.publications_id
+		userId: req.body.userId,
+		pubId: req.body.pubId
 	});
 	comment
 		.save()

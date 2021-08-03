@@ -45,11 +45,16 @@ export default {
 		//fonction qui permet la suppression d'un commentaire (avec axios)
 		deleteComment() {
 			const token = localStorage.getItem("token");
-			const commentId = this.$route.params.commentId;
-			console.log(commentId);
+			const userId = localStorage.getItem("userId");
+			//const pubId = localStorage.getItem("pubId");
+			const commentId = this.$route.params.id;
 
 			axios
 				.delete(`http://localhost:5000/api/comment/${commentId}`, {
+					data: {
+						userId: userId,
+						commentId: commentId
+					},
 					headers: {
 						"Content-type": "application/json",
 						Authorization: `Bearer ${token}`
@@ -57,6 +62,7 @@ export default {
 				})
 				.then(res => {
 					if (res) {
+						this.publication.Comments.splice(1);
 						alert("Commentaire supprimé");
 						window.location.reload();
 					}
