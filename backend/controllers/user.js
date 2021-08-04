@@ -1,6 +1,9 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
+const token = process.env.TOKEN;
 
 //Permet l'inscription
 exports.signup = (req, res, next) => {
@@ -43,7 +46,8 @@ exports.login = (req, res, next) => {
 						firstName: user.firstName,
 						lastName: user.lastName,
 						email: user.email,
-						token: jwt.sign({ userId: user.userId }, "bvbdjvdLKlknlknnhjvv", {
+						isAdmin: user.isAdmin,
+						token: jwt.sign({ userId: user.userId, isAdmin: user.isAdmin }, token, {
 							expiresIn: "24h"
 						})
 					});

@@ -22,7 +22,11 @@
 				:state="showNewComment ? 'Fermer' : 'Commenter'"
 				:color="showNewComment ? 'Crimson' : 'CornflowerBlue'"
 			/>
-			<button class="delete" @click="deletePublication">
+			<button
+				v-if="userId === publications.userId || isAdmin == true"
+				class="delete"
+				@click="deletePublication"
+			>
 				Supprimer ma publication
 			</button>
 		</div>
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+import VueJwtDecode from "vue-jwt-decode";
 import axios from "axios";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
@@ -56,7 +61,9 @@ export default {
 			comments: [],
 			title: "",
 			text: "",
-			content: ""
+			content: "",
+			userId: VueJwtDecode.decode(localStorage.getItem("token")).userId,
+			isAdmin: VueJwtDecode.decode(localStorage.getItem("token")).isAdmin
 		};
 	},
 	mounted() {

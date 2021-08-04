@@ -3,7 +3,11 @@
 	<div>
 		<div class="comment" :key="comment.id" v-for="comment in comments">
 			<p>{{ comment.content }}</p>
-			<button class="delete" @click="deleteComment">
+			<button
+				v-if="userId === comments.userId || isAdmin == true"
+				class="delete"
+				@click="deleteComment"
+			>
 				Supprimer mon commentaire
 			</button>
 		</div>
@@ -12,13 +16,16 @@
 
 <script>
 import axios from "axios";
+import VueJwtDecode from "vue-jwt-decode";
 
 export default {
 	name: "Comment",
 
 	data() {
 		return {
-			comments: []
+			comments: [],
+			userId: VueJwtDecode.decode(localStorage.getItem("token")).userId,
+			isAdmin: VueJwtDecode.decode(localStorage.getItem("token")).isAdmin
 		};
 	},
 	mounted() {
